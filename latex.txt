@@ -1,0 +1,1120 @@
+\documentclass[12pt,a4paper]{article}
+
+% ── Font: Times New Roman ─────────────────────────────────────────────────────
+\usepackage{mathptmx}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+
+% ── Page Layout ───────────────────────────────────────────────────────────────
+\usepackage[
+  a4paper,
+  top=0.85in,
+  bottom=0.85in,
+  left=0.85in,
+  right=0.85in
+]{geometry}
+
+% ── Line Spacing ──────────────────────────────────────────────────────────────
+\usepackage{setspace}
+\onehalfspacing
+
+% ── Paragraph ─────────────────────────────────────────────────────────────────
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+% ── Color ─────────────────────────────────────────────────────────────────────
+\usepackage{xcolor}
+\definecolor{vtuBlue}{RGB}{31,78,140}
+\definecolor{vtuBrown}{RGB}{139,69,19}
+
+% ── Graphics ──────────────────────────────────────────────────────────────────
+\usepackage{graphicx}
+
+% ── Tables ────────────────────────────────────────────────────────────────────
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{longtable}
+
+% ── Lists ─────────────────────────────────────────────────────────────────────
+\usepackage{enumitem}
+\setlist[enumerate]{noitemsep, topsep=3pt, leftmargin=1.5em}
+\setlist[itemize]{noitemsep,  topsep=3pt, leftmargin=1.5em}
+
+% ── Misc ──────────────────────────────────────────────────────────────────────
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=black, urlcolor=black, citecolor=black}
+\usepackage{amsmath}
+\usepackage{caption}
+
+% ── TikZ border on every page ─────────────────────────────────────────────────
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{eso-pic}
+
+% Cover page: rounded rectangle; all other pages: sharp rectangle
+\newif\ifcoverpage
+\coverpagefalse
+
+\AddToShipoutPictureBG{%
+  \begin{tikzpicture}[remember picture, overlay]
+    \ifcoverpage
+      \draw[line width=1.4pt, rounded corners=10pt]
+        ([xshift=12pt, yshift=-12pt]current page.north west)
+        rectangle
+        ([xshift=-12pt, yshift=12pt]current page.south east);
+    \else
+      \draw[line width=1.2pt]
+        ([xshift=14pt, yshift=-14pt]current page.north west)
+        rectangle
+        ([xshift=-14pt, yshift=14pt]current page.south east);
+    \fi
+  \end{tikzpicture}%
+}
+
+% ── Section formatting ────────────────────────────────────────────────────────
+\usepackage{titlesec}
+
+\titleformat{\section}[block]
+  {\normalfont\fontsize{16}{20}\bfseries\centering}
+  {}
+  {0pt}
+  {}
+\titlespacing*{\section}{0pt}{0pt}{10pt}
+
+\titleformat{\subsection}
+  {\normalfont\fontsize{14}{17}\bfseries}
+  {\thesubsection}
+  {0.8em}
+  {}
+\titlespacing*{\subsection}{0pt}{8pt}{4pt}
+
+\titleformat{\subsubsection}
+  {\normalfont\fontsize{12}{15}\bfseries}
+  {\thesubsubsection}
+  {0.8em}
+  {}
+\titlespacing*{\subsubsection}{0pt}{6pt}{3pt}
+
+% ── No page numbers ───────────────────────────────────────────────────────────
+\pagestyle{empty}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\begin{document}
+
+% =============================================================================
+%  PAGE 1 -- COVER PAGE  (rounded border)
+% =============================================================================
+\coverpagetrue
+
+\begin{center}
+\vspace*{-1.8cm}
+
+{\fontsize{16}{20}\bfseries\color{vtuBlue}
+  VISVESVARAYA TECHNOLOGICAL UNIVERSITY\\[3pt]}
+
+{\fontsize{12}{15}\color{vtuBrown}
+  ``JNANASANGAMA'', MACHHE, BELAGAVI -- 590018\\[8pt]}
+
+
+\includegraphics[width=2.8cm]{vtu.png}\\[6pt]
+
+{\fontsize{14}{17}\bfseries\color{vtuBlue} A PROJECT REPORT ON\\[5pt]}
+
+{\fontsize{15}{19}\bfseries\color{vtuBlue}
+  ``CONVOSHOP: A RETRIEVAL-AUGMENTED GENERATION FRAMEWORK\\
+  FOR INTENT-DRIVEN E-COMMERCE PRODUCT ADVISORY''\\[8pt]}
+
+{\fontsize{13}{16}\bfseries\itshape
+  Submitted in partial fulfilment of the requirement for the degree of\\[5pt]}
+
+{\fontsize{14}{17}\bfseries\color{vtuBlue} BACHELOR OF TECHNOLOGY\\[5pt]}
+
+{\fontsize{13}{16}\bfseries\itshape\color{vtuBrown} In\\[5pt]}
+
+{\fontsize{14}{17}\bfseries\color{vtuBlue} COMPUTER SCIENCE \& ENGINEERING\\[10pt]}
+
+{\fontsize{12}{15}\bfseries Submitted by\\[6pt]}
+\begin{tabular}{ll}
+  {\bfseries Soumya Ranjan Nayak}  & {\bfseries 1AJ23CS155} \\[4pt]
+  {\bfseries Tarun C}              & {\bfseries 1AJ23CS167} \\[4pt]
+  {\bfseries Vyshnavi K R}         & {\bfseries 1AJ23CS174} \\[4pt]
+  {\bfseries Veena Shree G}        & {\bfseries 1AJ23CS179} \\[10pt]
+\end{tabular}
+
+{\fontsize{12}{15}\color{vtuBrown} Under The Guidance of\\[3pt]}
+{\fontsize{13}{16}\bfseries\color{vtuBrown} Prof. Varshini T R\\[3pt]}
+{\fontsize{12}{15}\color{vtuBrown} Faculty In-charge,\\[2pt]}
+{\fontsize{12}{15}\color{vtuBrown} Dept of CSE, CITNC\\[8pt]}
+
+\includegraphics[width=5.0cm]{image.png}\\[6pt]
+
+{\fontsize{13}{16}\bfseries DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING\\[3pt]}
+{\fontsize{13}{16}\bfseries CAMBRIDGE INSTITUTE OF TECHNOLOGY- NORTH CAMPUS\\[3pt]}
+{\fontsize{12}{15}\bfseries KUNDANA, BENGALURU -- 562110, KARNATAKA\\[4pt]}
+{\fontsize{12}{15}\bfseries 2025 -- 2026}
+
+\end{center}
+
+\newpage
+\coverpagefalse
+
+% =============================================================================
+%  CERTIFICATE PAGE
+% =============================================================================
+\newpage
+\begin{center}
+
+{\fontsize{14}{17}\bfseries CAMBRIDGE INSTITUTE OF TECHNOLOGY NORTH CAMPUS\\[3pt]}
+{\fontsize{12}{15}\bfseries KUNDANA, BENGALURU -- 562110, KARNATAKA\\[3pt]}
+{\fontsize{12}{15}\bfseries 2025 -- 2026\\[1.5cm]}
+
+{\fontsize{14}{17}\bfseries DEPARTMENT OF COMPUTER SCIENCE \& ENGINEERING\\[1.5cm]}
+
+{\fontsize{16}{20}\bfseries CERTIFICATE\\[1cm]}
+
+\end{center}
+
+{\fontsize{12}{15}\selectfont
+This is to certify that the Project Report on \textbf{``ConvoShop: A Retrieval-Augmented Generation Framework for Intent-Driven E-Commerce Product Advisory''} has been successfully carried out by \textbf{Soumya Ranjan Nayak} (USN: \textbf{1AJ23CS155}),\textbf{Tarun C} (USN: \textbf{1AJ23CS167}), \textbf{Vyshnavi K R} (USN: \textbf{1AJ23CS174}),  and \textbf{Veena Shree G} (USN: \textbf{1AJ23CS179}), Bonafide students of Cambridge Institute of Technology North Campus, in partial fulfilment of the requirements for the award of the degree of Bachelor of Technology in Computer Science and Engineering of Visvesvaraya Technological University, Belagavi during 2025--2026. It is certified that all corrections/suggestions indicated for Internal Assessment have been incorporated in the report.
+}
+
+
+
+\vspace{1cm}
+
+\noindent
+\begin{minipage}[t]{0.32\textwidth}
+\raggedright
+--------------------------------\\[6pt]
+\textbf{Signature of Guide}\\
+\textbf{Prof. Varshini T R}\\
+\textbf{Asst. Professor}\\
+\textbf{Dept. of CSE,}\\
+\textbf{CITNC, Bengaluru}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.32\textwidth}
+\centering
+------------------------\\[6pt]
+\textbf{Signature of HOD}\\
+\textbf{Dr. Rajshekhar M Patil}\\
+\textbf{Prof. and HOD}\\
+\textbf{Dept. of CSE,}\\
+\textbf{CITNC, Bengaluru}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.32\textwidth}
+\raggedleft
+--------------------------------\\[6pt]
+\textbf{Signature of Principal}\\
+\textbf{Dr. Prasad Naik Hamsavath}\\
+\textbf{Principal,}\\
+\textbf{CITNC, Bengaluru}
+\end{minipage}
+
+\vspace{0.1cm}
+
+\noindent
+\begin{minipage}[t]{0.45\textwidth}
+\raggedright
+\rule{5cm}{0.4pt}\\[6pt]
+\textbf{Signature of Co-Guide}\\
+\textbf{Prof. Varshini T R}\\
+\textbf{Asst. Professor}\\
+\textbf{Dept. of CSE, CITNC,}\\
+\textbf{Bengaluru}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\noindent
+\begin{tabular}{@{}p{7cm}@{}p{7cm}@{}}
+Name of External 1: \underline{\hspace{5cm}} & Signature: \underline{\hspace{4cm}} \\[14pt]
+Name of External 2: \underline{\hspace{5cm}} & Signature: \underline{\hspace{4cm}} \\
+\end{tabular}
+
+\newpage
+
+% =============================================================================
+%  DECLARATION PAGE
+% =============================================================================
+\begin{center}
+{\fontsize{14}{17}\bfseries CAMBRIDGE INSTITUTE OF TECHNOLOGY NORTH CAMPUS\\[3pt]}
+{\fontsize{12}{15}\bfseries KUNDANA, BENGALURU -- 562110, KARNATAKA\\[1cm]}
+{\fontsize{14}{17}\bfseries DEPARTMENT OF COMPUTER SCIENCE \& ENGINEERING\\[1cm]}
+{\fontsize{16}{20}\bfseries DECLARATION\\[1cm]}
+\end{center}
+
+{\fontsize{12}{15}\selectfont
+We, \textbf{Soumya Ranjan Nayak} (1AJ23CS155), \textbf{Tarun C} (1AJ23CS167), \textbf{Vyshnavi K R} (1AJ23CS174),  and \textbf{Veena Shree G} (1AJ23CS179) hereby declare that the project work entitled \textbf{``ConvoShop: A Retrieval-Augmented Generation Framework for Intent-Driven E-Commerce Product Advisory''} is submitted under the supervision of our guide \textbf{Prof. Varshini T R}, Faculty In-charge, Department of Computer Science and Engineering, Cambridge Institute of Technology North Campus, Bengaluru, of the Visvesvaraya Technological University, Belagavi, during the academic year 2025--2026. The project report is original and it has not been submitted for any other degree in any university.
+}
+
+\vspace{1cm}
+Date: \underline{\hspace{4cm}}
+
+Place: Bengaluru
+
+\vspace{1cm}
+
+\begin{tabular}{p{5cm} p{4cm} p{4cm}}
+\textbf{Name} & \textbf{USN} & \textbf{Signature} \\[10pt]
+Soumya Ranjan Nayak & 1AJ23CS155 & \\[15pt]
+Tarun C & 1AJ23CS167 & \\[15pt]
+Vyshnavi K R & 1AJ23CS174 & \\[15pt]
+Veena Shree G & 1AJ23CS179 & \\
+\end{tabular}
+
+\newpage
+
+% =============================================================================
+%  ACKNOWLEDGEMENT
+% =============================================================================
+\begin{center}
+{\fontsize{16}{20}\bfseries ACKNOWLEDGEMENT\\[1cm]}
+\end{center}
+
+The satisfaction and euphoria that accompany the successful completion of any task would be incomplete without mentioning the people who made it possible. Success is the epitome of hard work and perseverance, but steadfast of all is encouraging guidance. With gratitude, we acknowledge all those whose guidance and encouragement served as a beacon of light and crowned our efforts with success.
+
+We thank our beloved Principal for constant help and support throughout the project. We are indebted to the Management of Cambridge Institute of Technology North Campus for providing an environment that helped us in completing our project successfully.
+
+We sincerely thank \textbf{Dr. Rajshekhar M Patil}, HOD, Department of Computer Science and Engineering, who has been the constant driving force behind the completion of this project.
+
+We consider it a privilege to express our heartfelt thanks to our project guide \textbf{Prof. Varshini T R}, Faculty In-charge, Department of Computer Science and Engineering, CITNC, Bengaluru, for her valuable suggestions, constant encouragement, and guidance provided at every stage of our project work. Her technical insights into Retrieval-Augmented Generation frameworks, large language models, and vector database systems greatly shaped the direction and quality of this project.
+
+We also extend our gratitude to all faculty members of the Department of Computer Science and Engineering, CITNC, for their academic support and constructive feedback during project reviews and presentations.
+
+We acknowledge the open-source communities behind FastAPI, React.js, and the Pinecone and MongoDB ecosystems, whose documentation and resources facilitated the implementation of ConvoShop.
+
+Last but not the least, we would like to thank our parents, friends, and the entire teaching and non-teaching staff of CITNC for their constant moral support and encouragement throughout this project.
+
+\vspace{1.5cm}
+
+\noindent\textbf{Soumya Ranjan Nayak} \hfill 1AJ23CS155\\[6pt]
+\noindent\textbf{Tarun C} \hfill 1AJ23CS167\\[6pt]
+\noindent\textbf{Vyshnavi K R} \hfill 1AJ23CS174\\[6pt]
+\noindent\textbf{Veena Shree G} \hfill 1AJ23CS179
+
+\newpage
+
+% =============================================================================
+%  ABSTRACT
+% =============================================================================
+\pagenumbering{roman}
+
+\begin{center}
+{\fontsize{16}{20}\bfseries ABSTRACT\\[10pt]}
+\end{center}
+
+E-commerce platforms today host millions of products, yet most recommendation systems remain unable to interpret the nuanced, contextual intent embedded in natural language queries. Users frequently encounter information overload, fragmented product data, and inconsistent reviews, making informed purchase decisions increasingly difficult. Conventional recommendation engines rely on collaborative filtering or keyword-based retrieval, both of which fall short when confronted with cold-start scenarios, ambiguous user intent, and the requirement for transparent, explainable outputs.
+
+ConvoShop proposes a novel Retrieval-Augmented Generation (RAG) framework that combines semantic
+
+vector retrieval with large language model (LLM) reasoning to deliver accurate, context-aware, and explainable product recommendations through a conversational interface. The system decomposes natural language queries into structured intents, maps them against a high-dimensional vector index of product embeddings stored in Pinecone, and fuses the retrieved context with the generative capabilities of Gemini 1.5 Flash to produce grounded, evidence-based advisory responses.
+
+The domain of this project spans Artificial Intelligence, Information Retrieval, and E-Commerce, with particular focus on Retrieval-Augmented Generation (RAG), Semantic Search via vector embeddings, Conversational Recommendation Systems, and Explainable AI (XAI). The technology stack includes React.js for the frontend, FastAPI for asynchronous backend orchestration, Pinecone for vector similarity search, MongoDB for product data management, and Gemini 1.5 Flash as the core language model.
+
+The architecture comprises seven tightly integrated layers: an Input Layer accepting free-form user queries, a Processing Layer for intent parsing and embedding generation, a Retrieval Layer leveraging Pinecone's Approximate Nearest Neighbour search, a Data Layer backed by MongoDB for persistent product storage, a RAG Layer for context fusion, an LLM Layer for chain-of-thought reasoning, and an Output Layer delivering ranked product recommendations with structured comparisons, pros and cons, and natural language explanations.
+
+Experimental results demonstrate that the RAG-based approach substantially reduces hallucination compared to standalone LLM inference, alleviates cold-start dependency by relying on semantic content rather than user interaction history, and produces coherent, trustworthy recommendations that users can interpret and validate. ConvoShop represents a significant step toward next-generation intelligent e-commerce advisory systems that are grounded, conversational, and explainable.
+
+\vspace{0.5cm}
+\textbf{Keywords:} Retrieval-Augmented Generation, Large Language Models, Semantic Search, Vector Embeddings, E-Commerce Recommendation, Explainable AI, Conversational AI, Pinecone, Gemini 1.5 Flash, FastAPI.
+
+\newpage
+
+% =============================================================================
+%  TABLE OF CONTENTS
+% =============================================================================
+\begin{center}
+{\fontsize{16}{20}\bfseries TABLE OF CONTENTS\\[10pt]}
+\end{center}
+
+\tableofcontents
+
+\newpage
+
+% =============================================================================
+%  LIST OF FIGURES
+% =============================================================================
+% =============================================================================
+%  LIST OF FIGURES
+% =============================================================================
+\newpage
+\begin{center}
+{\fontsize{16}{20}\bfseries LIST OF FIGURES\\[10pt]}
+\end{center}
+
+\begin{longtable}{p{3cm} p{9cm} p{2cm}}
+\toprule
+\textbf{Figure No.} & \textbf{Figure Name} & \textbf{Page No.} \\
+\midrule
+\endhead
+Figure 1.1 & Domain Overview of ConvoShop & 3 \\[6pt]
+Figure 2.1 & Research Gap Analysis Diagram & 8 \\[6pt]
+Figure 3.1 & System Architecture Diagram & 12 \\[6pt]
+Figure 3.2 & Seven-Layer RAG Architecture & 13 \\[6pt]
+Figure 4.1 & Flowchart of ConvoShop Pipeline & 20 \\[6pt]
+Figure 4.2 & Intent Decomposition Process & 22 \\[6pt]
+Figure 4.3 & Retrieval Workflow in Pinecone & 23 \\[6pt]
+Figure 4.4 & Context Fusion and LLM Reasoning & 25 \\[6pt]
+Figure 5.1 & Conversational Chat Interface & 28 \\[6pt]
+Figure 5.2 & Product Recommendation Output & 29 \\[6pt]
+Figure 5.3 & Feature Comparison View & 30 \\[6pt]
+Figure 5.4 & Pros and Cons Panel & 31 \\[6pt]
+\bottomrule
+\end{longtable}
+
+\vfill
+
+% =============================================================================
+%  LIST OF TABLES
+% =============================================================================
+\newpage
+\begin{center}
+{\fontsize{16}{20}\bfseries LIST OF TABLES\\[10pt]}
+\end{center}
+
+\begin{longtable}{p{3cm} p{9cm} p{2cm}}
+\toprule
+\textbf{Table No.} & \textbf{Table Name} & \textbf{Page No.} \\
+\midrule
+\endhead
+Table 2.1 & Literature Survey Summary & 7 \\[6pt]
+Table 3.1 & Functional Requirements & 14 \\[6pt]
+Table 3.2 & Non-Functional Requirements & 15 \\[6pt]
+Table 3.3 & Hardware and Software Requirements & 16 \\[6pt]
+Table 4.1 & Technology Stack Summary & 19 \\[6pt]
+\bottomrule
+\end{longtable}
+
+\vfill
+\newpage
+
+
+% =============================================================================
+%  CHAPTER 1 -- INTRODUCTION
+% =============================================================================
+\pagenumbering{arabic}
+
+\begin{center}
+{\fontsize{14}{17}\bfseries Chapter 1\\[6pt]}
+{\fontsize{16}{20}\bfseries INTRODUCTION\\[10pt]}
+\end{center}
+
+\addcontentsline{toc}{section}{Chapter 1: Introduction}
+
+\subsection*{1.1 Overview of ConvoShop and the Problem Domain}
+
+The exponential growth of e-commerce has transformed the way consumers discover and purchase products. Modern platforms host tens of millions of stock-keeping units across diverse categories, generating a data landscape of unprecedented scale and complexity. While this abundance benefits merchants, it creates a formidable challenge for consumers: navigating vast product catalogues to identify items that precisely match their needs, preferences, and budget constraints.
+
+E-commerce platforms generate massive volumes of product data every day. Users frequently face information overload caused by the sheer number of available products, fragmented product descriptions spread across multiple data sources, and inconsistent reviews that are difficult to reconcile. These challenges make informed, confident purchase decisions increasingly difficult for the average consumer.
+
+As stated in recent research on conversational AI and recommendation systems, traditional systems fail to interpret natural language intent with the semantic depth required by modern users. They lack contextual reasoning capabilities and offer no mechanism for generating natural language explanations. An emerging solution at the intersection of Conversational AI, Large Language Models (LLMs), and Retrieval-Augmented Generation (RAG) directly addresses these deficiencies by enabling intent understanding, contextual reasoning, and evidence-based recommendations.
+
+ConvoShop addresses these limitations by introducing a RAG architecture purpose-built for e-commerce product advisory. By coupling semantic retrieval from a structured product knowledge base with the reasoning capabilities of a state-of-the-art LLM, ConvoShop enables a conversational shopping assistant that understands user intent, retrieves relevant and verified product information, and synthesises coherent, explainable recommendations.
+
+\subsection*{1.2 Domain and Focus Areas}
+
+The project sits at the convergence of three dynamic technical domains:
+
+\begin{itemize}
+  \item \textbf{Artificial Intelligence and Large Language Models:} Conversational AI systems powered by transformer-based LLMs capable of natural language understanding and generation.
+  \item \textbf{Information Retrieval and Semantic Search:} Dense vector embeddings and Approximate Nearest Neighbour search for high-recall, semantically aware product retrieval.
+  \item \textbf{E-Commerce Recommendation:} Product advisory systems designed to support consumer purchase decisions at scale.
+\end{itemize}
+
+The specific sub-domains engaged by ConvoShop include Retrieval-Augmented Generation (RAG), Semantic Search via vector embeddings, Conversational Recommendation Systems, and Explainable AI (XAI). This interdisciplinary positioning makes ConvoShop both technically innovative and commercially relevant to the current landscape of intelligent e-commerce systems.
+
+\subsection*{1.3 Problem Statement}
+
+Existing recommender systems fail to interpret contextual user intent expressed in natural language. They lack explainability and suffer from critical operational limitations including cold-start failures for new users and new products, and hallucination in LLM-generated responses that are not grounded in verified product data.
+
+Traditional recommendation and search systems rely on keyword-based token matching or collaborative filtering, both of which fall short when users articulate requirements through complex, multi-constraint natural language queries. A query such as ``a laptop good for video editing under 80,000 rupees'' requires simultaneous understanding of task requirements, hardware constraints, and budget thresholds, a capability far beyond token matching or interaction-history-based filtering.
+
+There is a clear need for a system that integrates semantic retrieval with grounded LLM reasoning to generate accurate, explainable, and context-aware recommendations. This integration must address hallucination control, cold-start mitigation, and the generation of transparent, user-interpretable advisory outputs through a natural conversational interface.
+
+\subsection*{1.4 Objectives}
+
+The purpose of this project is to design, implement, and evaluate ConvoShop: a RAG-based conversational product advisory system for e-commerce environments.
+
+\textbf{Specific Objectives:}
+
+\begin{itemize}
+  \item \textbf{Design a RAG-based recommendation architecture:} Develop a modular, seven-layer hybrid architecture that integrates semantic retrieval with LLM reasoning for contextually aware product advisory.
+
+  \item \textbf{Implement semantic embedding-based retrieval:} Generate dense vector representations of product data and enable Approximate Nearest Neighbour (ANN) search via Pinecone for high-speed, high-recall retrieval.
+
+  \item \textbf{Enable intent decomposition from natural language queries:} Parse and decompose free-form user queries into structured intent signals including category, features, budget, and use case, that drive targeted retrieval.
+
+  \item \textbf{Integrate LLM reasoning with grounded context:} Fuse retrieved product context with Gemini 1.5 Flash to generate evidence-based, hallucination-resistant recommendations.
+
+  \item \textbf{Provide explainable and transparent recommendations:} Produce structured outputs including top-K ranked products, feature comparisons, pros and cons, and natural language reasoning.
+
+  \item \textbf{Reduce hallucination and cold-start dependency:} Demonstrate that RAG-based grounding measurably reduces LLM hallucination and that semantic content-based retrieval mitigates cold-start limitations.
+\end{itemize}
+
+\subsection*{1.5 Scope of the Project}
+
+ConvoShop is designed to operate as a full-stack conversational recommendation system with the following scope:
+
+\begin{itemize}
+  \item Frontend conversational interface built with React.js supporting natural language query input and structured recommendation display.
+  \item Backend RAG pipeline implemented in FastAPI, orchestrating intent parsing, embedding generation, vector retrieval, context fusion, and LLM response generation.
+  \item Vector similarity search on a Pinecone index of pre-computed product embeddings, supporting sub-100ms ANN retrieval at scale.
+  \item Product knowledge base hosted in MongoDB with full product metadata including descriptions, specifications, pricing, and review summaries.
+  \item LLM inference powered by Gemini 1.5 Flash with chain-of-thought prompting for evidence-based advisory generation.
+\end{itemize}
+
+\subsection*{1.6 Organisation of the Report}
+
+The remainder of this report is organised as follows. Chapter 2 presents a survey of relevant literature on RAG, conversational recommendation, and explainable AI. Chapter 3 details the System Requirements Specification covering functional, non-functional, and hardware/software requirements. Chapter 4 describes the methodology including system architecture, the seven-layer RAG pipeline, and implementation specifics. Chapter 5 presents the results including UI screenshots and system performance. Chapter 6 concludes the report and outlines future directions.
+
+\newpage
+
+% =============================================================================
+%  CHAPTER 2 -- LITERATURE SURVEY
+% =============================================================================
+\begin{center}
+{\fontsize{14}{17}\bfseries Chapter 2\\[6pt]}
+{\fontsize{16}{20}\bfseries LITERATURE SURVEY\\[10pt]}
+\end{center}
+
+\addcontentsline{toc}{section}{Chapter 2: Literature Survey}
+
+\subsection*{2.1 Overview}
+
+Research at the intersection of information retrieval, natural language processing, and recommendation systems has grown substantially in the past decade. The introduction of transformer-based language models and dense passage retrieval has catalysed a new generation of knowledge-grounded generation systems. This chapter reviews the foundational work underpinning ConvoShop and identifies the research gaps that the project addresses.
+
+\subsection*{2.2 Literature Survey Table}
+
+\begin{longtable}{|p{0.5cm}|p{3.5cm}|p{1.5cm}|p{1.5cm}|p{3.5cm}|p{3cm}|}
+\hline
+\textbf{Sl.} & \textbf{Article Title} & \textbf{Author} & \textbf{Year} & \textbf{Methodology / Outcomes} & \textbf{Research Gaps} \\
+\hline
+1 & Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks & Lewis et al. & 2020 & Proposed RAG combining dense retrieval with seq2seq generation; demonstrated strong open-domain QA performance. & Applied to generic QA; not adapted to structured e-commerce advisory with multi-attribute retrieval. \\
+\hline
+2 & Dense Passage Retrieval for Open-Domain QA & Karpukhin et al. & 2020 & Bi-encoder DPR model outperforms BM25 for knowledge-intensive tasks using question-answer training pairs. & Domain-specific embedding for e-commerce products not explored; no structured output generation. \\
+\hline
+3 & Conversational Recommender System & Sun and Zhang & 2018 & Dialogue-based system asks clarifying questions to progressively refine user requirements for better recommendations. & Template-based dialogue; no LLM integration or semantic retrieval for product matching. \\
+\hline
+4 & Explicit Factor Models for Explainable Recommendation & Zhang et al. & 2014 & Phrase-level sentiment analysis applied to recommendation; showed explanation-aware models improve user trust. & No conversational interface; dependent on review data availability and quality. \\
+\hline
+5 & Retrieval Augmentation Reduces Hallucination in Conversation & Shuster et al. & 2021 & Grounding generation in retrieved documents substantially reduces hallucination across diverse knowledge domains. & Studied general conversational domains; e-commerce product advisory not specifically addressed. \\
+\hline
+6 & Sentence-BERT: Sentence Embeddings Using Siamese BERT-Networks & Reimers and Gurevych & 2019 & Siamese BERT architecture produces semantically meaningful sentence embeddings with high cosine similarity correlation. & Product-domain fine-tuning and ANN integration not addressed. \\
+\hline
+7 & RAG for Large Language Models: A Survey & Gao et al. & 2024 & Comprehensive survey of RAG architectures, retrieval strategies, and evaluation benchmarks for LLM-based generation. & Survey does not cover e-commerce-specific RAG with structured multi-attribute outputs. \\
+\hline
+8 & Survey of Hallucination in Natural Language Generation & Ji et al. & 2023 & Categorises hallucination types in NLG and surveys mitigation strategies including retrieval augmentation. & E-commerce product hallucination (fabricated specs, prices) not specifically modelled. \\
+\hline
+9 & Deep Learning Based Recommender System: A Survey & Zhang et al. & 2019 & Reviews deep learning methods for recommendation including content-based, collaborative, and hybrid systems. & No coverage of RAG-based approaches or LLM-generated explanations for recommendations. \\
+\hline
+10 & A Survey of Large Language Models & Zhao et al. & 2023 & Comprehensive survey of LLM architectures, training paradigms, and downstream application capabilities. & Application to grounded e-commerce advisory with structured output not addressed. \\
+\hline
+\end{longtable}
+
+\subsection*{2.3 Detailed Review of Key Works}
+
+\textbf{Lewis et al. (2020)} introduced Retrieval-Augmented Generation as a method for augmenting sequence-to-sequence models with non-parametric memory through dense retrieval, demonstrating significant improvements on open-domain question answering benchmarks. Their work established the foundational paradigm that ConvoShop adapts for the e-commerce context: retrieve relevant passages from an external knowledge store, then condition language model generation on the retrieved evidence.
+
+Research on conversational recommendation systems has explored how dialogue-based interaction can elicit user preferences more effectively than static query interfaces. \textbf{Sun and Zhang (2018)} proposed a conversational approach to recommendation where the system asks clarifying questions to progressively refine its understanding of user requirements. This interactive paradigm aligns closely with the conversational interface adopted in ConvoShop.
+
+Studies on dense vector retrieval, including \textbf{Karpukhin et al. (2020)} on Dense Passage Retrieval (DPR), demonstrated that bi-encoder models trained on question-answer pairs can outperform traditional BM25 retrieval for knowledge-intensive tasks. The application of sentence transformers and product-aware embedding models extends this approach to the e-commerce domain, where semantic similarity between product attributes and user intent is the primary retrieval signal.
+
+Research on Explainable Recommendation has emphasised the importance of providing users with transparent reasoning for recommended items. \textbf{Zhang et al. (2014)} demonstrated that explanation-aware recommendation models significantly improve user trust and conversion rates, underscoring the business case for the explainability features central to ConvoShop.
+
+\textbf{Shuster et al. (2021)} showed that grounding generation in retrieved documents substantially reduces hallucination across diverse knowledge domains, providing strong motivation for the RAG approach adopted in ConvoShop over pure LLM-based generation.
+
+\subsection*{2.4 Research Gaps Addressed by ConvoShop}
+
+The existing body of work reveals several persistent gaps that ConvoShop is specifically designed to address:
+
+\begin{itemize}
+  \item Most deployed recommender systems lack the ability to process natural language queries with complex, multi-constraint intents. ConvoShop's intent decomposition layer bridges this gap by structurally parsing queries before retrieval.
+
+  \item While RAG has been extensively applied to open-domain question answering and document summarisation, its application to structured e-commerce product advisory with multi-attribute retrieval and comparative output generation represents an underexplored area. ConvoShop fills this gap directly.
+
+  \item Existing conversational recommendation systems often rely on pre-defined dialogue trees or template-based responses, limiting their flexibility. ConvoShop's integration of a frontier LLM enables free-form, contextually adaptive advisory dialogue.
+
+  \item The combination of hallucination control through RAG grounding, cold-start mitigation through content-based semantic retrieval, and user-facing explainability through structured recommendation output has not been demonstrated in a unified system prior to ConvoShop.
+\end{itemize}
+
+\newpage
+
+% =============================================================================
+%  CHAPTER 3 -- SYSTEM REQUIREMENTS SPECIFICATION (SRS)
+% =============================================================================
+\begin{center}
+{\fontsize{14}{17}\bfseries Chapter 3\\[6pt]}
+{\fontsize{16}{20}\bfseries SYSTEM REQUIREMENTS SPECIFICATION\\[10pt]}
+\end{center}
+
+\addcontentsline{toc}{section}{Chapter 3: System Requirements Specification}
+
+\subsection*{3.1 System Analysis}
+
+System analysis involves studying the existing e-commerce recommendation landscape and identifying the functional and technical requirements needed to design an efficient conversational advisory solution. Traditional systems rely heavily on collaborative filtering or keyword search, which are inefficient for complex natural language queries and prone to cold-start failures and LLM hallucination.
+
+The analysis phase identifies that the core system must support natural language query input, semantic embedding-based retrieval, grounded LLM generation, and structured explainable output. Emphasis is placed on modular design, API-driven architecture, and deployment readiness using widely available managed cloud services.
+
+\subsection*{3.2 Functional Requirements}
+
+\begin{longtable}{|p{1cm}|p{5.5cm}|p{7cm}|}
+\hline
+\textbf{FR\#} & \textbf{Requirement} & \textbf{Description} \\
+\hline
+FR-01 & Natural Language Query Input & The system shall accept free-form natural language product queries through the conversational interface. \\
+\hline
+FR-02 & Intent Decomposition & The system shall parse and decompose user queries into structured intent signals: product category, required features, budget range, and use case context. \\
+\hline
+FR-03 & Query Embedding Generation & The system shall convert the decomposed query into a dense vector representation using a sentence embedding model. \\
+\hline
+FR-04 & Vector Similarity Search & The system shall perform ANN search on the Pinecone index to retrieve the top-K most semantically similar product embeddings. \\
+\hline
+FR-05 & Product Metadata Retrieval & The system shall fetch full product metadata from MongoDB for each retrieved product candidate. \\
+\hline
+FR-06 & Context Fusion & The system shall fuse the structured intent and retrieved product metadata into a grounded context document for LLM consumption. \\
+\hline
+FR-07 & LLM Reasoning and Generation & The system shall invoke Gemini 1.5 Flash with the fused context to generate a coherent, evidence-based advisory response. \\
+\hline
+FR-08 & Structured Recommendation Output & The system shall return ranked product recommendations with feature comparisons, pros and cons, and natural language reasoning. \\
+\hline
+FR-09 & Streaming Response Delivery & The system shall stream LLM tokens to the frontend in real time to enable a smooth conversational experience. \\
+\hline
+FR-10 & Multi-Turn Dialogue Support & The system shall maintain session-level conversational context to support follow-up queries and iterative requirement refinement. \\
+\hline
+\end{longtable}
+
+\subsection*{3.3 Non-Functional Requirements}
+
+\begin{longtable}{|p{1cm}|p{4cm}|p{8cm}|}
+\hline
+\textbf{NFR\#} & \textbf{Requirement} & \textbf{Description} \\
+\hline
+NFR-01 & Retrieval Latency & ANN search in Pinecone shall return top-K results within 100ms under normal load. \\
+\hline
+NFR-02 & Response Quality & LLM-generated responses shall be grounded exclusively in retrieved product data; hallucination of product specifications or prices shall be minimised. \\
+\hline
+NFR-03 & Scalability & The Pinecone vector index shall support horizontal scaling to millions of product embeddings without architectural changes. \\
+\hline
+NFR-04 & Availability & The FastAPI backend shall support asynchronous concurrent request handling to serve multiple users simultaneously. \\
+\hline
+NFR-05 & Explainability & All product recommendations shall include structured reasoning tied to user-stated requirements. \\
+\hline
+NFR-06 & Cold-Start Independence & The system shall provide relevant recommendations to new users from their first query without requiring interaction history. \\
+\hline
+NFR-07 & Usability & The conversational interface shall accept queries in natural language without requiring structured input syntax from users. \\
+\hline
+NFR-08 & Maintainability & The seven-layer modular architecture shall allow independent optimisation and replacement of each pipeline stage. \\
+\hline
+\end{longtable}
+
+\subsection*{3.4 Hardware and Software Requirements}
+
+\subsubsection*{3.4.1 Hardware Requirements}
+
+\begin{itemize}
+  \item \textbf{Development Machine:} Minimum 8 GB RAM, quad-core processor, 50 GB free storage for development, testing, and model experimentation.
+  \item \textbf{Network:} Broadband internet connection for API calls to Pinecone, MongoDB Atlas, and the Gemini API.
+  \item \textbf{Server/Deployment:} Cloud-hosted or on-premise server with Python 3.10+ runtime environment for FastAPI backend deployment.
+\end{itemize}
+
+\subsubsection*{3.4.2 Software Requirements}
+
+\begin{longtable}{|p{4cm}|p{4cm}|p{5.5cm}|}
+\hline
+\textbf{Component} & \textbf{Technology} & \textbf{Purpose} \\
+\hline
+Operating System & Windows 10/11 or Ubuntu 22.04 & Development and deployment environment \\
+\hline
+Frontend Framework & React.js (v18+) & Conversational chat interface \\
+\hline
+Backend Framework & FastAPI (Python 3.10+) & Async API orchestration and RAG pipeline \\
+\hline
+Vector Database & Pinecone (Managed Cloud) & ANN search on product embeddings \\
+\hline
+Product Database & MongoDB Atlas & Product metadata storage and retrieval \\
+\hline
+Language Model & Gemini 1.5 Flash API & LLM reasoning and advisory generation \\
+\hline
+Embedding Model & Sentence Transformers & Dense query and product embedding generation \\
+\hline
+Package Manager & pip / npm & Python and JavaScript dependency management \\
+\hline
+Version Control & Git / GitHub & Source code management and collaboration \\
+\hline
+API Testing & Postman / Swagger UI & Backend API endpoint testing \\
+\hline
+IDE & VS Code & Development environment \\
+\hline
+\end{longtable}
+
+\newpage
+
+% =============================================================================
+%  CHAPTER 4 -- METHODOLOGY
+% =============================================================================
+\begin{center}
+{\fontsize{14}{17}\bfseries Chapter 4\\[6pt]}
+{\fontsize{16}{20}\bfseries METHODOLOGY\\[10pt]}
+\end{center}
+
+\addcontentsline{toc}{section}{Chapter 4: Methodology}
+
+\subsection*{4.1 Domain and Technology Overview}
+
+ConvoShop operates at the convergence of three technical domains: Artificial Intelligence and Large Language Models, Information Retrieval and Semantic Search, and E-Commerce Recommendation. The full technology stack is as follows:
+
+\begin{itemize}
+  \item \textbf{Frontend:} React.js --- a component-based JavaScript library providing the conversational chat interface.
+  \item \textbf{Backend:} FastAPI (Python) --- an asynchronous, high-performance web framework orchestrating the full retrieval-generation pipeline.
+  \item \textbf{Vector Database:} Pinecone --- a managed vector similarity search service enabling ANN retrieval with sub-100ms latency at scale.
+  \item \textbf{Product Database:} MongoDB --- a document-oriented NoSQL database storing full product metadata.
+  \item \textbf{Language Model:} Gemini 1.5 Flash (Google) --- a high-capability, low-latency multimodal language model used as the reasoning engine.
+\end{itemize}
+
+\subsection*{4.2 System Architecture}
+
+ConvoShop implements a Hybrid RAG-Based Recommendation Architecture structured across seven functional layers:
+
+\subsubsection*{4.2.1 Layer 1: Input Layer}
+
+The Input Layer accepts free-form natural language user queries through the React.js conversational interface. Queries may include product category specifications, feature requirements, budget constraints, and use-case descriptions in any combination and order. There is no requirement for the user to follow a structured input format.
+
+\subsubsection*{4.2.2 Layer 2: Processing Layer}
+
+The Processing Layer performs intent parsing and query decomposition. The user query is analysed by the FastAPI backend to extract structured intent signals including product category, required features, budget range, and use case context. The decomposed query is then passed to a sentence embedding model to generate a dense vector representation suitable for ANN retrieval.
+
+\subsubsection*{4.2.3 Layer 3: Retrieval Layer}
+
+The Retrieval Layer uses the query embedding to perform ANN search against the Pinecone vector index, which stores pre-computed embeddings for all products in the catalogue. The top-K most semantically similar product vectors are retrieved, identifying candidate products aligned with the user's intent regardless of exact keyword overlap.
+
+\subsubsection*{4.2.4 Layer 4: Data Layer}
+
+The Data Layer fetches full product metadata for the retrieved candidates from MongoDB. This provides the LLM with rich, verified information including product names, specifications, pricing, availability, and aggregated review insights.
+
+\subsubsection*{4.2.5 Layer 5: RAG Layer}
+
+The RAG Layer performs context fusion, combining the structured intent from the Processing Layer with the verified product metadata from the Data Layer into a grounded context document. This document constrains and informs subsequent LLM generation, preventing the model from fabricating product information absent from the retrieved context.
+
+\subsubsection*{4.2.6 Layer 6: LLM Layer}
+
+The LLM Layer invokes Gemini 1.5 Flash with the fused context. Chain-of-thought prompting encourages the model to explicitly reason about product suitability relative to stated user requirements before producing the final recommendation. The model's generative scope is confined to the verified product context.
+
+\subsubsection*{4.2.7 Layer 7: Output Layer}
+
+The Output Layer delivers the structured recommendation to the frontend, comprising ranked product suggestions, feature-by-feature comparisons, pros and cons for each candidate, and a natural language explanation of the recommendation rationale. Responses are streamed token-by-token to the frontend via FastAPI's asynchronous streaming capabilities.
+
+\subsection*{4.3 Flowchart of ConvoShop Pipeline}
+
+% ── Extra colours for the flowchart ──────────────────────────────────────────
+\definecolor{layerPurple}{RGB}{72,52,153}
+\definecolor{layerTeal}{RGB}{15,100,86}
+\definecolor{layerBlue}{RGB}{24,95,165}
+\definecolor{layerAmber}{RGB}{133,79,11}
+\definecolor{layerCoral}{RGB}{153,60,29}
+\definecolor{layerIndigo}{RGB}{55,45,130}
+\definecolor{tagBg}{RGB}{55,54,51}
+\definecolor{arrowCol}{RGB}{140,138,130}
+
+\begin{figure}[p]
+\centering
+
+\begin{tikzpicture}[
+  every node/.style={font=\sffamily},
+  lbox/.style 2 args={
+    draw=#1!70!black,
+    fill=#1,
+    rounded corners=6pt,
+    text=white,
+    text width=9.0cm,
+    minimum height=#2,
+    inner sep=8pt,
+    align=center,
+    line width=0.5pt
+  },
+  taglabel/.style={
+    draw=tagBg!50,
+    fill=tagBg,
+    rounded corners=3pt,
+    text=white,
+    font=\sffamily\footnotesize,
+    inner sep=4pt,
+    minimum width=1.7cm,
+    align=center,
+    line width=0.3pt
+  },
+  pillbox/.style={
+    draw=#1!70!black,
+    fill=#1,
+    rounded corners=5pt,
+    text=white,
+    font=\sffamily\scriptsize,
+    text width=2.8cm,
+    minimum height=1.0cm,
+    inner sep=6pt,
+    align=center,
+    line width=0.4pt
+  },
+  myarrow/.style={
+    ->,
+    >=stealth,
+    color=arrowCol,
+    line width=0.9pt
+  },
+  leader/.style={
+    dashed,
+    color=arrowCol!70,
+    line width=0.4pt
+  }
+]
+
+%% ── LAYER NODES ──────────────────────────────────────────────────────────────
+
+\node[lbox={layerPurple}{1.0cm}] (L1) at (0,0) {
+  \textbf{Layer 1 \textemdash{} Input Layer}\\[3pt]
+  {\small User submits free-form query via React.js}
+};
+
+\node[lbox={layerTeal}{1.2cm}, below=0.5cm of L1] (L2) {
+  \textbf{Layer 2 \textemdash{} Processing Layer}\\[3pt]
+  {\small Intent parsing: category $\cdot$ features $\cdot$ budget $\cdot$ use case}\\[1pt]
+  {\small Dense query vector via sentence transformer}
+};
+
+\node[lbox={layerBlue}{1.2cm}, below=0.5cm of L2] (L3) {
+  \textbf{Layer 3 \textemdash{} Retrieval Layer}\\[3pt]
+  {\small ANN search on Pinecone product embedding index}\\[1pt]
+  {\small Top-K semantically similar products returned}
+};
+
+\node[lbox={layerAmber}{1.2cm}, below=0.5cm of L3] (L4) {
+  \textbf{Layer 4 \textemdash{} Data Layer}\\[3pt]
+  {\small Fetch full product metadata from MongoDB Atlas}\\[1pt]
+  {\small Specs $\cdot$ pricing $\cdot$ availability $\cdot$ review summaries}
+};
+
+\node[lbox={layerCoral}{1.2cm}, below=0.5cm of L4] (L5) {
+  \textbf{Layer 5 \textemdash{} RAG Layer}\\[3pt]
+  {\small Fuse structured intent + verified product metadata}\\[1pt]
+  {\small Grounded context document for LLM consumption}
+};
+
+\node[lbox={layerIndigo}{1.2cm}, below=0.5cm of L5] (L6) {
+  \textbf{Layer 6 \textemdash{} LLM Layer}\\[3pt]
+  {\small Gemini 1.5 Flash with chain-of-thought prompting}\\[1pt]
+  {\small Evidence-based reasoning scoped to retrieved context}
+};
+
+\node[lbox={layerTeal}{1.4cm}, below=0.5cm of L6] (L7) {
+  \textbf{Layer 7 \textemdash{} Output Layer}\\[3pt]
+  {\small Ranked products $\cdot$ feature comparison $\cdot$ pros \& cons}\\[1pt]
+  {\small Natural language reasoning streamed to React.js UI}\\[1pt]
+  {\small Session context updated for multi-turn follow-ups}
+};
+
+%% ── VERTICAL ARROWS ──────────────────────────────────────────────────────────
+
+\draw[myarrow] (L1.south) -- (L2.north);
+\draw[myarrow] (L2.south) -- (L3.north);
+\draw[myarrow] (L3.south) -- (L4.north);
+\draw[myarrow] (L4.south) -- (L5.north);
+\draw[myarrow] (L5.south) -- (L6.north);
+\draw[myarrow] (L6.south) -- (L7.north);
+
+%% ── LEFT TAGS ────────────────────────────────────────────────────────────────
+
+\node[taglabel, left=1.1cm of L1] (T1) {React.js};
+\node[taglabel, left=1.1cm of L2] (T2) {FastAPI};
+\node[taglabel, left=1.1cm of L3] (T3) {Pinecone};
+\node[taglabel, left=1.1cm of L4] (T4) {MongoDB};
+\node[taglabel, left=1.1cm of L5] (T5) {RAG fusion};
+\node[taglabel, left=1.1cm of L6] (T6) {Gemini 1.5};
+\node[taglabel, left=1.1cm of L7] (T7) {Streaming};
+
+\draw[leader] (T1.east) -- (L1.west);
+\draw[leader] (T2.east) -- (L2.west);
+\draw[leader] (T3.east) -- (L3.west);
+\draw[leader] (T4.east) -- (L4.west);
+\draw[leader] (T5.east) -- (L5.west);
+\draw[leader] (T6.east) -- (L6.west);
+\draw[leader] (T7.east) -- (L7.west);
+
+%% ── MULTI-TURN FEEDBACK ARROW (right side) ───────────────────────────────────
+
+\draw[myarrow, dashed]
+  (L7.east)
+  -- ++(1.5cm, 0)
+  -- ++(0, 12.2cm)
+  -- (L1.east);
+
+\node[
+  rotate=270,
+  text=arrowCol,
+  font=\sffamily\scriptsize,
+  anchor=center
+] at ([xshift=2.1cm] L4.east) {Multi-turn context};
+
+%% ── DIVIDER ──────────────────────────────────────────────────────────────────
+
+\node[below=0.9cm of L7, text=arrowCol, font=\sffamily\small] (divlabel)
+  {Core challenges addressed};
+
+\draw[arrowCol!40, dashed, line width=0.4pt]
+  ([xshift=-5.2cm] divlabel.west) -- ([xshift=5.2cm] divlabel.east);
+
+%% ── FOUR PILLS ───────────────────────────────────────────────────────────────
+
+\node[pillbox=layerBlue,   below=0.5cm of divlabel, xshift=-4.3cm] (P1)
+  {Hallucination\\control via RAG};
+\node[pillbox=layerTeal,   below=0.5cm of divlabel, xshift=-1.4cm] (P2)
+  {Cold-start\\mitigation};
+\node[pillbox=layerCoral,  below=0.5cm of divlabel, xshift=1.5cm]  (P3)
+  {Intent\\understanding};
+\node[pillbox=layerPurple, below=0.5cm of divlabel, xshift=4.4cm]  (P4)
+  {Explainability\\via structured output};
+
+\end{tikzpicture}
+
+\caption{Flowchart of ConvoShop Pipeline}
+\label{fig:pipeline}
+\end{figure}
+
+The end-to-end ConvoShop pipeline follows a structured sequential flow:
+
+\begin{enumerate}
+  \item User submits a natural language product query through the React.js chat interface.
+  \item FastAPI backend receives the query and initiates the intent decomposition process.
+  \item The decomposed query is passed to the sentence embedding model to generate a dense query vector.
+  \item The query vector is sent to Pinecone for ANN search; top-K product embedding matches are retrieved.
+  \item Product IDs from the retrieval results are used to fetch full metadata records from MongoDB.
+  \item The Processing Layer intent and MongoDB metadata are fused into a grounded context prompt.
+  \item The context prompt is submitted to the Gemini 1.5 Flash API with chain-of-thought instructions.
+  \item The LLM response is streamed back through FastAPI to the React.js frontend.
+  \item The frontend renders the structured recommendation including ranked products, feature comparisons, and reasoning.
+  \item Session context is updated to support follow-up queries and multi-turn dialogue.
+\end{enumerate}
+
+\subsection*{4.4 Intent Decomposition}
+
+The intent decomposition module parses natural language queries into four structured dimensions:
+
+\begin{itemize}
+  \item \textbf{Product Category:} The type of product the user is seeking, for example laptop, smartphone, or headphones.
+  \item \textbf{Required Features:} Specific attributes the user values, such as battery life, processor speed, or water resistance.
+  \item \textbf{Budget Range:} Explicit or implicit price constraints, extracted from expressions such as ``under 50,000 rupees'' or ``mid-range.''
+  \item \textbf{Use Case Context:} The intended application of the product, such as video editing, gaming, travel, or daily commute.
+\end{itemize}
+
+This structured decomposition enables targeted vector retrieval and provides the LLM with explicit constraint signals for reasoning.
+
+\subsection*{4.5 Semantic Vector Retrieval}
+
+Product embeddings are pre-computed offline using a sentence transformer model applied to concatenated product metadata strings. Each product's name, category, description, key specifications, and use case tags are combined into a single text document and embedded into a 768-dimensional dense vector. These vectors are indexed in Pinecone using the cosine similarity metric.
+
+At query time, the decomposed query is embedded using the same model and submitted to Pinecone for ANN search. The top-K results (typically K=10) are retrieved with cosine similarity scores that reflect semantic alignment between user intent and product content.
+
+\subsection*{4.6 Grounded LLM Generation}
+
+The RAG context prompt submitted to Gemini 1.5 Flash includes:
+
+\begin{itemize}
+  \item A system prompt defining the advisory role and output format requirements.
+  \item The structured intent extracted from the user query.
+  \item Full metadata for the top-K retrieved product candidates.
+  \item Chain-of-thought instructions directing the model to reason about each candidate's suitability before ranking.
+  \item Output format specification requiring ranked products, feature comparison, pros and cons, and reasoning narrative.
+\end{itemize}
+
+This grounded prompt architecture constrains the LLM to generate recommendations exclusively from verified retrieved product data, substantially reducing hallucination risk.
+
+\subsection*{4.7 Key Features of ConvoShop}
+
+\begin{itemize}
+  \item \textbf{Natural Language Query Understanding:} Accepts queries as users naturally express their requirements, without structured input.
+  \item \textbf{Semantic Vector Retrieval:} Matches user intent to products through embedding similarity rather than keyword overlap.
+  \item \textbf{Grounded LLM Reasoning:} All responses are conditioned on verified product data from MongoDB.
+  \item \textbf{Explainable Output:} Every recommendation includes structured explanation covering features, comparisons, and reasoning.
+  \item \textbf{Conversational Context Management:} Session-level context enables multi-turn refinement dialogue.
+  \item \textbf{Streaming Response Generation:} Token-level streaming provides a smooth real-time conversational experience.
+\end{itemize}
+
+\subsection*{4.8 Addressing Core Research Challenges}
+
+\begin{itemize}
+  \item \textbf{Hallucination Control:} RAG grounding confines the model's generative scope to factually consistent retrieved content. The model cannot fabricate product specifications or prices absent from the retrieved context.
+
+  \item \textbf{Cold-Start Mitigation:} Semantic retrieval operates entirely on product content embeddings and requires no historical user interaction data. New users receive semantically relevant recommendations from their very first query.
+
+  \item \textbf{Intent Understanding:} The intent decomposition layer enables handling of complex, multi-constraint queries beyond keyword-based search capability.
+
+  \item \textbf{Explainability:} Structured output including pros, cons, and reasoning provides the transparency needed for informed, confident purchase decisions.
+\end{itemize}
+
+\newpage
+
+% =============================================================================
+%  CHAPTER 5 -- RESULTS AND USER INTERFACE
+% =============================================================================
+\begin{center}
+{\fontsize{14}{17}\bfseries Chapter 5\\[6pt]}
+{\fontsize{16}{20}\bfseries RESULTS AND USER INTERFACE\\[10pt]}
+\end{center}
+
+\addcontentsline{toc}{section}{Chapter 5: Results and User Interface}
+
+\subsection*{5.1 Overview}
+
+This chapter presents the results of ConvoShop's implementation, covering the conversational user interface design, the structured recommendation output format, and an analysis of system performance against the core research objectives. Both qualitative interface results and quantitative performance observations are discussed.
+
+\subsection*{5.2 Conversational User Interface}
+
+The ConvoShop user interface is a chat-based conversational interface built with React.js. Key interface features include:
+
+\begin{itemize}
+  \item \textbf{Natural Language Query Input:} A chat input field accepting free-form product queries without structured syntax requirements.
+  \item \textbf{Streaming Response Display:} LLM-generated responses are streamed token-by-token to the chat window, providing a smooth, real-time conversational experience analogous to modern AI chat applications.
+  \item \textbf{Structured Output Rendering:} The recommendation response is rendered with clear visual separation of ranked product suggestions, feature comparison tables, and pros/cons panels.
+  \item \textbf{Session Context Display:} The full conversation history is displayed in the chat window, allowing users to review prior queries and responses.
+  \item \textbf{Follow-Up Query Support:} Users can submit follow-up queries to refine requirements or request alternative recommendations within the same session.
+\end{itemize}
+
+\subsection*{5.3 Recommendation Output Format}
+
+Each ConvoShop recommendation response is structured into four components:
+
+\begin{itemize}
+  \item \textbf{Ranked Product List:} Top-K recommended products are presented in ranked order with product names, brief descriptions, and prices drawn directly from MongoDB.
+  \item \textbf{Feature Comparison:} A side-by-side comparison of key specifications across top-ranked candidates, directly addressing the features mentioned in the user query.
+  \item \textbf{Pros and Cons:} For each top-ranked product, a concise list of advantages and limitations relevant to the user's stated use case.
+  \item \textbf{Reasoning Narrative:} A natural language explanation of why the top recommendation best matches the user's requirements, grounded in the retrieved product data.
+\end{itemize}
+
+\subsection*{5.4 System Testing}
+
+\subsubsection*{5.4.1 Functional Testing}
+
+Functional testing verified that all seven pipeline layers operate correctly end-to-end. Natural language queries of varying complexity were submitted, including single-constraint queries (``best wireless headphones''), multi-constraint queries (``laptop for video editing under 80,000 rupees with good battery life''), and follow-up refinement queries (``show me lighter options from that list''). All query types were processed successfully with semantically relevant retrievals and coherent LLM responses.
+
+\subsubsection*{5.4.2 Hallucination Evaluation}
+
+Responses generated by ConvoShop were compared against a baseline of ungrounded Gemini 1.5 Flash inference (without retrieval) on the same set of product-related queries. ConvoShop's RAG-grounded responses contained significantly fewer fabricated product specifications, incorrect prices, and non-existent product claims compared to the ungrounded baseline. All product details in ConvoShop responses were traceable to MongoDB records.
+
+\subsubsection*{5.4.3 Retrieval Performance}
+
+The Pinecone ANN search demonstrated consistent sub-100ms retrieval latency for top-K queries across the product catalogue. Semantic retrieval successfully identified relevant products for queries where no exact keyword overlap existed between the query and product metadata, confirming the effectiveness of embedding-based semantic matching.
+
+\subsubsection*{5.4.4 Cold-Start Testing}
+
+New user sessions with no prior interaction history received semantically relevant recommendations from the first query, confirming that content-based semantic retrieval effectively mitigates the cold-start problem inherent to collaborative filtering systems.
+
+\subsection*{5.5 Benefits and Strengths}
+
+\begin{itemize}
+  \item \textbf{Semantic Precision:} Dense vector retrieval captures semantic similarity invisible to keyword-based systems.
+  \item \textbf{Hallucination Resistance:} RAG grounding substantially constrains the model's output to verifiable facts.
+  \item \textbf{Cold-Start Independence:} Consistent recommendation quality from first user interaction.
+  \item \textbf{Explainability:} Structured output with reasoning aligned to user requirements supports transparent decision-making.
+  \item \textbf{Scalability:} Pinecone's managed vector index supports millions of products with low-latency retrieval.
+  \item \textbf{Conversational Flexibility:} Multi-turn dialogue enables progressive intent refinement.
+\end{itemize}
+
+\subsection*{5.6 Limitations}
+
+\begin{itemize}
+  \item \textbf{Embedding Quality Dependency:} Poorly described products with thin metadata generate low-quality embeddings with reduced retrievability.
+  \item \textbf{LLM Latency:} Gemini 1.5 Flash inference introduces non-trivial response delay compared to keyword-search systems.
+  \item \textbf{Context Window Constraints:} Large top-K retrieval sets may exceed the LLM's effective context window, requiring careful management.
+  \item \textbf{Data Currency Dependency:} Stale product data in MongoDB propagates inaccuracies regardless of retrieval quality.
+\end{itemize}
+
+\newpage
+
+% =============================================================================
+%  CHAPTER 6 -- CONCLUSION
+% =============================================================================
+\begin{center}
+{\fontsize{14}{17}\bfseries Chapter 6\\[6pt]}
+{\fontsize{16}{20}\bfseries CONCLUSION\\[10pt]}
+\end{center}
+
+\addcontentsline{toc}{section}{Chapter 6: Conclusion}
+
+\subsection*{6.1 Summary}
+
+ConvoShop demonstrates that a RAG-based architecture is well-suited to the demands of intelligent e-commerce product advisory. The project proposed a novel RAG framework that combines semantic vector retrieval with LLM reasoning to deliver accurate, context-aware, and explainable product recommendations through a conversational interface.
+
+The project addressed four key research gaps that persist in the current state of e-commerce recommendation systems:
+
+\begin{itemize}
+  \item \textbf{Intent Understanding:} The intent decomposition layer enables handling of complex, multi-constraint natural language queries.
+  \item \textbf{Explainability:} Structured output including feature comparisons, pros/cons, and reasoning provides transparent recommendations.
+  \item \textbf{Hallucination Control:} RAG grounding in verified MongoDB product data measurably reduces LLM hallucination compared to ungrounded inference.
+  \item \textbf{Cold-Start Independence:} Content-based semantic retrieval provides consistent recommendation quality from the very first user interaction.
+\end{itemize}
+
+\subsection*{6.2 Contribution}
+
+ConvoShop's primary technical contribution is the integration of three complementary capabilities into a unified conversational advisory system:
+
+\begin{itemize}
+  \item \textbf{Retrieval + LLM Reasoning:} The RAG architecture combines the factual grounding of retrieval systems with the conversational fluency of frontier LLMs, mitigating the primary weaknesses of each approach used in isolation.
+  \item \textbf{Conversational Interface:} The React.js chat interface with streaming response delivery enables natural, intuitive user interactions without structured query syntax requirements.
+  \item \textbf{Explainable Recommendation:} The structured output format provides users with the transparency and evidence needed to make informed, confident purchase decisions.
+\end{itemize}
+
+\subsection*{6.3 Importance and Impact}
+
+ConvoShop addresses a genuine and growing need in e-commerce. As product catalogues scale and consumer expectations for personalised, intelligent shopping assistance rise, the limitations of traditional recommendation systems become increasingly costly for both platforms and users.
+
+For platform operators, ConvoShop offers the potential to improve conversion rates, reduce product return rates through better pre-purchase information, and increase user trust in AI-generated recommendations. For users, ConvoShop reduces the cognitive burden of product discovery and supports more informed purchase decisions.
+
+The modular architecture and reliance on widely available managed APIs ensure that ConvoShop is not merely a research prototype but a framework suitable for practical deployment and continued development.
+
+\subsection*{6.4 Future Work}
+
+Several enhancements are planned for future development of ConvoShop:
+
+\begin{itemize}
+  \item \textbf{Multimodal Product Data:} Integration of product images and video into the embedding and retrieval pipeline using multimodal embedding models.
+  \item \textbf{User Preference Learning:} Personalisation through lightweight user preference profiles built from session interaction history.
+  \item \textbf{Real-Time Data Synchronisation:} Automated pipelines to keep MongoDB product data and Pinecone embeddings current with live catalogue updates.
+  \item \textbf{Mobile Platform Expansion:} Development of a dedicated mobile application interface for on-device conversational shopping assistance.
+  \item \textbf{Multilingual Query Support:} Extension of the intent decomposition and embedding pipeline to support queries in Indian regional languages.
+  \item \textbf{Advanced Evaluation Framework:} Standardised benchmarks for measuring RAG-based recommendation quality, hallucination rates, and user satisfaction scores.
+\end{itemize}
+
+In conclusion, ConvoShop establishes a strong and extensible foundation for next-generation intelligent e-commerce advisory systems, with the potential to meaningfully advance the state of the art in conversational recommendation at scale.
+
+\newpage
+
+% =============================================================================
+%  REFERENCES
+% =============================================================================
+\begin{center}
+{\fontsize{16}{20}\bfseries REFERENCES\\[10pt]}
+\end{center}
+
+\addcontentsline{toc}{section}{References}
+
+\begin{enumerate}
+  \item Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N., \ldots \& Kiela, D. (2020). Retrieval-Augmented Generation for knowledge-intensive NLP tasks. \textit{Advances in Neural Information Processing Systems (NeurIPS)}, 33, 9459--9474.
+
+  \item Karpukhin, V., O{\u{g}}uz, B., Min, S., Lewis, P., Wu, L., Edunov, S., \ldots \& Yih, W. (2020). Dense Passage Retrieval for open-domain question answering. \textit{Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP)}, 6769--6781.
+
+  \item Sun, Y., \& Zhang, Y. (2018). Conversational recommender system. \textit{Proceedings of the 41st International ACM SIGIR Conference on Research \& Development in Information Retrieval}, 235--244.
+
+  \item Zhang, Y., Lai, G., Zhang, M., Zhang, Y., Liu, Y., \& Ma, S. (2014). Explicit factor models for explainable recommendation based on phrase-level sentiment analysis. \textit{Proceedings of the 37th International ACM SIGIR Conference}, 83--92.
+
+  \item Shuster, K., Poff, S., Chen, M., Kiela, D., \& Weston, J. (2021). Retrieval augmentation reduces hallucination in conversation. \textit{Findings of the Association for Computational Linguistics: EMNLP 2021}, 3784--3803.
+
+  \item Reimers, N., \& Gurevych, I. (2019). Sentence-BERT: Sentence embeddings using Siamese BERT-networks. \textit{Proceedings of the 2019 Conference on EMNLP}, 3982--3992.
+
+  \item Gao, Y., Xiong, Y., Gao, X., Jia, K., Pan, J., Bi, Y., \ldots \& Wang, H. (2024). Retrieval-Augmented Generation for large language models: A survey. \textit{arXiv preprint arXiv:2312.10997}.
+
+  \item Ji, Z., Lee, N., Frieske, R., Yu, T., Su, D., Xu, Y., \ldots \& Fung, P. (2023). Survey of hallucination in natural language generation. \textit{ACM Computing Surveys}, 55(12), 1--38.
+
+  \item Zhao,

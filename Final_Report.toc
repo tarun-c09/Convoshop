@@ -1,0 +1,15 @@
+\contentsline {section}{Certificate}{2}{Doc-Start}%
+\contentsline {section}{List of Figures}{iii}{Doc-Start}%
+\contentsline {section}{Chapter 1: Introduction}{1}{table.2}%
+\contentsline {section}{Chapter 2: Literature Survey}{4}{table.2}%
+\contentsline {section}{Chapter 3: System Requirements Specification}{8}{table.3}%
+\contentsline {section}{Chapter 4: Methodology}{11}{table.6}%
+\contentsline {section}{Chapter 5: Results and User Interface}{16}{Item.10}%
+\contentsline {section}{Chapter 6: Conclusion}{19}{Item.10}%
+\contentsline {section}{Chapter 7: System Implementation Details}{21}{Item.10}%
+\contentsline {section}{Chapter 8: System Evaluation and Testing}{24}{Item.10}%
+\contentsline {section}{Chapter 9: Theoretical Foundations of Vector Databases and LLMs}{26}{Item.10}%
+\contentsline {section}{Chapter 10: Data Verification and Error Handling}{28}{Item.10}%
+\contentsline {section}{Chapter 11: Security, Privacy, and Ethical Considerations}{30}{Item.12}%
+\contentsline {section}{Chapter 12: System Deployment and Continuous Integration}{32}{Item.12}%
+\contentsline {section}{References}{33}{Item.12}%
